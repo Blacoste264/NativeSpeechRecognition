@@ -10,17 +10,19 @@
   </div>
 
 <script>
+  // Enable Speech recognation tool in browser
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-  const recognition = new SpeechRecognition();
-  recognition.interimResults = true;
+  const recognition = new SpeechRecognition(); // create new instance
+  recognition.interimResults = true; // Breaks in paragraphs during pause of speech
 
+  // Add paragraphs to words div in HTML
   let p = document.createElement("p");
   const words = document.querySelector(".words");
   words.appendChild(p);
 
+  // Create new arrays of words listened to and append to paragraphs
   recognition.addEventListener("result", e => {
-      console.log(e);
       const transcript = Array.from(e.results)
         .map(result => result[0])
         .map(result => result.transcript)
@@ -37,7 +39,7 @@
         }
   })
 
-    recognition.addEventListener("end", recognition.start);
+  recognition.addEventListener("end", recognition.start); // Speech recognation continually listens
   recognition.start();
 
 
@@ -53,6 +55,7 @@ body {
     font-weight: 200;
     font-size: 20px;
 }
+/* Lines of words styling (notebook style) */
 .words {
     max-width:500px;
     margin:50px auto;
@@ -68,6 +71,7 @@ body {
 p {
     margin: 0 0 3rem;
 }
+  /* Aligns text */
 .words:before {
     content: '';
     position: absolute;
